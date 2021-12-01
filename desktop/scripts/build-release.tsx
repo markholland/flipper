@@ -93,7 +93,6 @@ const argv = yargs
   .check((argv) => {
     const targetSpecified =
       argv.mac ||
-      argv.universal ||
       argv['mac-dmg'] ||
       argv.win ||
       argv.linux ||
