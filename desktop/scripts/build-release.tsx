@@ -93,6 +93,7 @@ const argv = yargs
   .check((argv) => {
     const targetSpecified =
       argv.mac ||
+      argv.universal ||
       argv['mac-dmg'] ||
       argv.win ||
       argv.linux ||
@@ -200,10 +201,10 @@ async function buildDist(buildFolder: string) {
   const postBuildCallbacks: (() => void)[] = [];
 
   if (argv.mac || argv['mac-dmg']) {
-    targetsRaw.push(Platform.MAC.createTarget(['dir']));
+    targetsRaw.push(Platform.MAC.createTarget(['dir'], Arch.universal));
     // You can build mac apps on Linux but can't build dmgs, so we separate those.
     if (argv['mac-dmg']) {
-      targetsRaw.push(Platform.MAC.createTarget(['dmg']));
+      targetsRaw.push(Platform.MAC.createTarget(['dmg'], Arch.universal));
     }
     const macPath = path.join(
       distDir,
